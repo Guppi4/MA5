@@ -24,8 +24,8 @@ struct StackNode *newNode(char *data)
 {
     struct StackNode *stackNode =
         (struct StackNode *)
-            my_malloc(sizeof(struct StackNode));
-    stackNode->data = (char *)my_malloc_arr(S);
+            malloc(sizeof(struct StackNode));
+    stackNode->data = (char *)malloc(S);
     strcpy(stackNode->data, data);
     stackNode->next = NULL;
     return stackNode;
@@ -51,8 +51,8 @@ char *pop(struct StackNode **root)
     struct StackNode *temp = *root;
     *root = (*root)->next;
     char *popped = temp->data;
-    my_free(temp->data);
-    my_free(temp);
+    free(temp->data);
+   // free(temp);
 
     return popped;
 }

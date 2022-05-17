@@ -11,33 +11,40 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <sys/mman.h> 
 #include <pthread.h>
 #include "stack.h"
+#include <fcntl.h>
 
 #define PORT "3512" // the port users will be connecting to
 
 #define BACKLOG 10 // how many pending connections queue will hold
-
+#define MAXP 11
 char client_message[2000];
 char buffer[1024];
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+int new_fd[MAXP];
 
+int sockfd;
+ static struct StackNode *stack_s = NULL;
 void *socketThread(void *arg)
 {
-   static struct StackNode *stack_s = NULL;
+   // printf("ENTER AAAAAAAAA\n");
+  static struct StackNode *stack_s = NULL;
     /// printf("%s","hgjh");
     int newSocket = *((int *)arg);
    // free(arg);
     sleep(1);
-    char buff[1024];
+    char buff[1024],*strin;
 
     char *message;
     int nb;
-    pthread_mutex_lock(&lock);
+       while (1) {
+	   
     nb= recv(newSocket, buff, 1024, 0);
-    pthread_mutex_unlock(&lock);
+    
     int c = 0;
     buff[nb] = '\0';
+    // printf("server%sserver",buff);
     if (!strncmp(buff, "POP", 3))
     {
         c = 1;
@@ -65,7 +72,8 @@ void *socketThread(void *arg)
         break;
 
     case 2:
-        push(&stack_s, buff + 5);
+        strin=buff + 5;
+        push(&stack_s,strin);
         //puts("client ");
         // printf("the client %d has left the server ",i);
          break;
@@ -84,7 +92,8 @@ void *socketThread(void *arg)
        // printf("the client %d has left the server ",i);
         break;
     }
-
+      bzero(buffer, 1024);
+       }
     close(newSocket);
     // pthread_exit(NULL);
 }
@@ -112,8 +121,8 @@ void *get_in_addr(struct sockaddr *sa)
 
 int main(void)
 {
-   
-    int sockfd, new_fd, *new_sock; // listen on sock_fd, new connection on new_fd
+    static struct StackNode *stack_s = NULL;
+    int  fd,*new_sock; // listen on sock_fd, new connection on new_fd
     struct addrinfo hints, *servinfo, *p;
     struct sockaddr_storage their_addr; // connector's address information
     socklen_t sin_size;
@@ -121,12 +130,26 @@ int main(void)
     int yes = 1;
     char s[INET6_ADDRSTRLEN];
     int rv;
-
+    pid_t childpid;
+    struct flock lock;
+   
+    struct stat sb;
+   fd = open ("stack_file.exe", O_RDWR);
+        
+    
+   
+    stack_s = (struct StackNode*)mmap(NULL,  sizeof(stack_s)*100333, PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANONYMOUS, fd, 0);
+        
+         
+         
+        
+   
+   
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // use my IP
-
+ 
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0)
     {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
@@ -189,8 +212,8 @@ int main(void)
     while (1)
     { // main accept() loop
         sin_size = sizeof their_addr;
-        new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
-        if (new_fd == -1)
+        new_fd[i] = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
+        if (new_fd[i] == -1)
         {
             perror("accept");
             continue;
@@ -200,23 +223,22 @@ int main(void)
                   get_in_addr((struct sockaddr *)&their_addr),
                   s, sizeof s);
         // printf("server: got connection from %s\n", s);
-        printf("client  %d  in server  \n",i);
-
-        if (pthread_create(&tid[i++], NULL, &socketThread, &new_fd) != 0)
-        {
-            printf("Failed to create thread\n");
+         //pid_t pidid=
+        
+            // Creates a child process
+        if (fork() == 0) {
+             close(sockfd);
+            // Closing the server socket id
+          printf("client  %d  in server  \n",i);
+             socketThread(&new_fd[i]);
+            
+            return 1;
+             
         }
-
-        if (i >= 50)
-        {
-            i = 0;
-            while (i < 50)
-            {
-                pthread_join(tid[i++], NULL);
-            }
-            i = 0;
-        }
+      
+       i++;   ///close(*new_sock);
     }
+    close(sockfd);
     //free(i);
     return 0;
 }

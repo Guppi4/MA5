@@ -2,6 +2,8 @@
 /*
 	C ECHO client example using sockets
 */
+
+#include <fcntl.h>
 #include <stdio.h>		//printf
 #include <string.h>		//strlen
 #include <sys/socket.h> //socket
@@ -38,34 +40,38 @@ int main(int argc, char *argv[])
 
 	// keep communicating with server
 
-	printf("Enter message : ");
-	fflush(stdout);
-	scanf("%[^\n]s", message);
-	while ((getchar()) != '\n');
-		
-
-	// Send some data
-	if (send(sock, message, strlen(message), 0) < 0)
-	{
-		puts("Send failed");
-		return 1;
-	}
-     // Receive a reply from the server
-	 char data[SM];
-	 if(!strncmp(message, "POP",3) || !strncmp(message, "TOP",3)){
-       
-        int nb;
-        nb = recv(sock, data, 1024, 0);
-        data[nb] = '\0';
-       
-		printf("Server reply : %s\n",data);
-	 }
-	 	//puts("client ");
 	
+  
+	   while(strncmp(message, "EXIT",4)){
+        printf("Enter message : ");
+		 fflush(stdout);
+	  scanf("%[^\n]s", message);
+	   while ((getchar()) != '\n');
+        
+		if (send(sock, message, strlen(message), 0) < 0)
+		{
+			
+			puts("Send failed");
+			return 1;
+		}
+		// Receive a reply from the server
+		//printf("OUTPUT: %s\n", message);
+		char data[SM];
+		if (!strncmp(message, "POP", 3) || !strncmp(message, "TOP", 3))
+		{
 
-	
-	
+			 //printf("vay ");
+			int nb;
+			nb = recv(sock, data, 1024, 0);
+			data[nb] = '\0';
+             bzero(message, 1024);
+			printf("OUTPUT: %s\n", data);
+		   
+		}
+	    bzero(message, 1024);
+	   }
+	// puts("client ");
 
-	close(sock);
+	//close(sock);
 	return 0;
 }
