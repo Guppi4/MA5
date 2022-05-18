@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue May 17 22:36:17 2022
+# Make data base, printed on Thu May 19 00:10:23 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ SNAP_INSTANCE_KEY =
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-a5c52bfa-f5f2-4134-918c-9b80b96003cc.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-43b4f52f-958f-4255-9acb-945c5ec7b2b3.sock
 # environment
 VSCODE_CWD = /home/kirill
 # default
@@ -57,7 +57,7 @@ VSCODE_CODE_CACHE_PATH = /home/kirill/.config/Code/CachedData/da15b6fd3ef856477b
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.XJAIM1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.F74GM1
 # default
 .LOADED := 
 # default
@@ -97,7 +97,7 @@ SNAP_REEXEC =
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 18106
+VSCODE_PID = 2513
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -107,7 +107,7 @@ BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # makefile (from 'Makefile', line 6)
 FLAGS = -g -c -Wall
 # environment
-SESSION_MANAGER = local/kirill-VirtualBox:@/tmp/.ICE-unix/1530,unix/kirill-VirtualBox:/tmp/.ICE-unix/1530
+SESSION_MANAGER = local/kirill-VirtualBox:@/tmp/.ICE-unix/1545,unix/kirill-VirtualBox:/tmp/.ICE-unix/1545
 # automatic
 *F = $(notdir $*)
 # environment
@@ -155,7 +155,7 @@ SNAP_USER_COMMON = /home/kirill/snap/code/common
 # environment
 SNAP = /snap/code/96
 # environment
-INVOCATION_ID = f26564aa1f9b4eb5a296d430aff5cd16
+INVOCATION_ID = 19d3697f8e14410d8ee01e8ca8410020
 # environment
 SNAP_REVISION = 96
 # environment
@@ -207,9 +207,9 @@ SNAP_DATA = /var/snap/code/96
 # environment
 SNAP_CONTEXT = VYapbnRLuMpWByPxPLxm_RIx4Dbgt1U1ctIMcCm7dY54cgKISHtT
 # environment
-MANAGERPID = 1391
+MANAGERPID = 1407
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 18064
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2466
 # environment
 _ = /snap/code/96/usr/share/code/code
 # environment
@@ -217,7 +217,7 @@ XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/kirill/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-JOURNAL_STREAM = 8:23821
+JOURNAL_STREAM = 8:23803
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -275,9 +275,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 2051, inode 131247): 15 files, no impossibilities.
+# . (device 2051, inode 131247): 16 files, no impossibilities.
 
-# 15 files, no impossibilities in 1 directories.
+# 16 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -302,28 +302,9 @@ client.o: client.c
 
 server.o: server.c
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
-#  Last modified 2022-05-17 20:03:58.545952677
+#  Last modified 2022-05-18 23:10:15.471704791
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := server.o
-# automatic
-# * := 
-# automatic
-# < := server.c
-# automatic
-# + := server.c
-# automatic
-# % := 
-# automatic
-# ^ := server.c
-# automatic
-# ? := server.c
-# automatic
-# | := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/13=15%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 21):
 	$(CC) $(FLAGS) server.c
 
@@ -344,7 +325,7 @@ clean:
 # Not a target:
 server.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-17 22:35:45.118017605
+#  Last modified 2022-05-18 23:10:12.202193656
 #  File has been updated.
 #  Successfully updated.
 
@@ -356,7 +337,7 @@ test.c:
 
 server: server.o stack.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-17 20:03:58.673951563
+#  Last modified 2022-05-18 23:42:38.375031186
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
@@ -366,9 +347,10 @@ server: server.o stack.o
 
 # Not a target:
 stack.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-05-18 23:43:58.29317405
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 .DEFAULT:
@@ -413,8 +395,28 @@ test.o: test.c
 
 stack.o: stack.c
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit/static pattern stem: ''
+#  Last modified 2022-05-18 23:42:38.291023932
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := stack.o
+# automatic
+# * := 
+# automatic
+# < := stack.c
+# automatic
+# + := stack.c
+# automatic
+# % := 
+# automatic
+# ^ := stack.c
+# automatic
+# ? := stack.c
+# automatic
+# | := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=2/13=15%
 #  recipe to execute (from 'Makefile', line 24):
 	$(CC) $(FLAGS) stack.c
 
@@ -426,12 +428,12 @@ stack.o: stack.c
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 23 / storage = 181 B / avg = 7 B
-# current buf: size = 8162 B / used = 181 B / count = 23 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 24 / storage = 191 B / avg = 7 B
+# current buf: size = 8162 B / used = 191 B / count = 24 / avg = 7 B
 
-# strcache performance: lookups = 54 / hit rate = 57%
+# strcache performance: lookups = 55 / hit rate = 56%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=0/54=0%
-# Finished Make data base on Tue May 17 22:36:17 2022
+# Load=24/8192=0%, Rehash=0, Collisions=0/55=0%
+# Finished Make data base on Thu May 19 00:10:24 2022
 
  

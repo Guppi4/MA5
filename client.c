@@ -40,12 +40,13 @@ int main(int argc, char *argv[])
 
 	// keep communicating with server
 
-	
+	char data[SM];
   
 	   while(strncmp(message, "EXIT",4)){
         printf("Enter message : ");
-		 fflush(stdout);
+		 
 	  scanf("%[^\n]s", message);
+	  fflush(stdout);
 	   while ((getchar()) != '\n');
         
 		if (send(sock, message, strlen(message), 0) < 0)
@@ -64,14 +65,14 @@ int main(int argc, char *argv[])
 			int nb;
 			nb = recv(sock, data, 1024, 0);
 			data[nb] = '\0';
-             bzero(message, 1024);
+            // bzero(message, 1024);
 			printf("OUTPUT: %s\n", data);
 		   
 		}
-	    bzero(message, 1024);
+	   // bzero(message, 1024);
 	   }
 	// puts("client ");
 
-	//close(sock);
+	close(sock);
 	return 0;
 }

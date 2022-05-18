@@ -4,96 +4,87 @@
 #include <string.h>
 #include "stack.h"
 #include <unistd.h>
-#define S 1024
-struct StackNode
+#include <sys/mman.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "stack.h"
+#define S 1024 * 30
+struct stack_tag
 {
-    char *data;
-    struct StackNode *next;
+    char data[S];
+    int tos;
 };
-int posnode = sizeof(struct StackNode);
-int posarray = sizeof(struct StackNode);
 
-// A structure to represent a stack
-
-void *my_malloc(size_t size);
-void my_free(void *ptr);
-
-void *my_malloc_arr(size_t size);
-void my_free_arr(void *ptr);
-struct StackNode *newNode(char *data)
+static void fatal_error(const char *errmsg)
 {
-    struct StackNode *stackNode =
-        (struct StackNode *)
-            malloc(sizeof(struct StackNode));
-    stackNode->data = (char *)malloc(S);
-    strcpy(stackNode->data, data);
-    stackNode->next = NULL;
-    return stackNode;
+    fprintf(stderr, "%s\n", errmsg);
+    exit(1);
 }
 
-int isEmpty(struct StackNode *root)
+stack stack_create()
 {
-    return !root;
+    stack s = (stack)malloc(sizeof(struct stack_tag));
+    if (s == NULL)
+        fatal_error("out of space");
+    s->tos = -1;
 }
 
-void push(struct StackNode **root, char *data)
+void stack_destroy(stack *sptr)
 {
-    struct StackNode *stackNode = newNode(data);
-    stackNode->next = *root;
-    *root = stackNode;
-    printf("%s pushed to stack\n", stackNode->data);
+    if (*sptr != NULL)
+        free(*sptr);
+    *sptr = NULL;
 }
 
-char *pop(struct StackNode **root)
+element_type stack_top(stack s)
 {
-    if (isEmpty(*root))
-        return "Empty";
-    struct StackNode *temp = *root;
-    *root = (*root)->next;
-    char *popped = temp->data;
-    free(temp->data);
-   // free(temp);
-
-    return popped;
-}
-
-char *peek(struct StackNode **root)
-{
-    char *temp;
-    if (isEmpty(*root))
+    if (s->tos == 0)
     {
-        temp = "Empty";
-        return temp;
+        return "Empty";
+    };
+    int i;
+    for (i = (s->tos) - 2; s->data[i] != '\0'; i--);//return to begin of top string 
+      i++;
+    
+    
+    char* top = (char*)malloc(sizeof(char)*1024);
+    strcpy(top, &(s->data[i]));
+    return top;
+}
+
+element_type stack_pop(stack s)
+{
+     if(s->data == 0){
+        perror("Error! stack is empty");
     }
-    temp = (*root)->data;
-
-    return temp;
-}
-void *my_malloc(size_t size)
-{
-
-    void *p = sbrk(posnode);
-    posnode += sizeof(struct StackNode);
-    return p;
+    int i;
+    for (i = (s->tos) - 2; s->data[i] != '\0'; i--){
+        s->tos--;
+    }//return to begin of top string 
+     char* pop = (char*)malloc(sizeof(char)*1024);
+    strcpy(pop, &(s->data[i]));
+    return pop;
 }
 
-void my_free(void *ptr)
+void stack_push(stack s, element_type e)
 {
+    for (int i = 0; i < strlen(e); i++)
+    {
 
-    sbrk(posnode);
-    posnode -= sizeof(struct StackNode);
-}
-void *my_malloc_arr(size_t size)
-{
-
-    void *p = sbrk(posarray);
-    posarray += sizeof(struct StackNode);
-    return p;
+        s->tos++;
+        s->data[s->tos] = e[i];
+    }
+    s->data[s->tos++] = '\0';
+    printf("%s pushed to stack\n", e);
 }
 
-void my_free_arr(void *ptr)
+int stack_size(stack s)
 {
+    return s->tos + 1;
+}
 
-    sbrk(posarray);
-    posarray -= sizeof(struct StackNode);
+int stack_is_empty(stack s)
+{
+    return s->tos == -1;
 }
