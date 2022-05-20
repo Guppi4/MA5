@@ -5,29 +5,31 @@
 #include "stack.h"
 #include <unistd.h>
 #include <sys/mman.h>
+#include <fcntl.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "stack.h"
-#define S 1024 * 30
+#define S 10124
 struct stack_tag
 {
     char data[S];
     int tos;
 };
-
-static void fatal_error(const char *errmsg)
+//int fd = open("mmap.txt", O_RDWR);
+stack stack_create(stack s)
 {
-    fprintf(stderr, "%s\n", errmsg);
-    exit(1);
-}
-
-stack stack_create()
-{
-    stack s = (stack)malloc(sizeof(struct stack_tag));
+   // s = (void*)mmap( NULL, sizeof(struct stack_tag), PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANONYMOUS,-1, 0);
+       
+       
+       
+        
+        
+       
+    
     if (s == NULL)
-        fatal_error("out of space");
+    {
+        perror("Not correct\n");
+    }
     s->tos = -1;
+   // printf("si %d\n", s->tos);
 }
 
 void stack_destroy(stack *sptr)
@@ -44,39 +46,73 @@ element_type stack_top(stack s)
         return "Empty";
     };
     int i;
-    for (i = (s->tos) - 2; s->data[i] != '\0'; i--);//return to begin of top string 
-      i++;
-    
-    
-    char* top = (char*)malloc(sizeof(char)*1024);
+   
+    for (i = (s->tos) - 2; s->data[i] != '\0' ;i--){
+     if(i==0){
+         break;
+     }
+     
+     printf("i= %d\n", i);
+     
+    }
+    if(i!=0){
+        i++; 
+     }
+         
+         // return to begin of top string
+   
+  
+    char *top = (char *)malloc(sizeof(char) * 1024);
     strcpy(top, &(s->data[i]));
     return top;
 }
 
 element_type stack_pop(stack s)
 {
-     if(s->data == 0){
-        perror("Error! stack is empty");
+    if (s->data == 0)
+    {
+        perror("Error! stack is empty\n");
     }
     int i;
-    for (i = (s->tos) - 2; s->data[i] != '\0'; i--){
-        s->tos--;
-    }//return to begin of top string 
-     char* pop = (char*)malloc(sizeof(char)*1024);
+    for (i = (s->tos) - 2; s->data[i] != '\0'; i--)
+    {
+       s->tos--; 
+       if(i==0){
+           s->tos--;
+           break;
+       }
+       
+    } // return to begin of top string
+    if(i!=0){
+         s->tos--; 
+     }
+     printf("si %d\n", s->tos); 
+    char *pop = (char *)malloc(sizeof(char) * 1024);
     strcpy(pop, &(s->data[i]));
     return pop;
 }
 
 void stack_push(stack s, element_type e)
 {
-    for (int i = 0; i < strlen(e); i++)
-    {
 
-        s->tos++;
+    int si = (int)strlen(e);
+   // printf("si %d\n", si);
+    for (int i = 0; i < si; i++)
+    {
         s->data[s->tos] = e[i];
+         printf("s->tos %d\n", s->tos);
+        // printf("tos  %d\n", s->tos);
+        printf("s->data[s->tos]=%c\n",  s->data[s->tos]);
+        s->tos++;
+        // int p=s->tos;
+        
+        
+         ///printf("s->data[s->tos]=%c\n",  s->data[s->tos]);
     }
+
     s->data[s->tos++] = '\0';
-    printf("%s pushed to stack\n", e);
+     printf("s->tos %d\n", s->tos);
+    printf("%s pushed to stack\n", s->data);
 }
 
 int stack_size(stack s)

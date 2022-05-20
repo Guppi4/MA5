@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May 19 00:10:23 2022
+# Make data base, printed on Fri May 20 21:53:15 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ SNAP_INSTANCE_KEY =
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-43b4f52f-958f-4255-9acb-945c5ec7b2b3.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-e3fa5d67-a7b8-4a78-9d13-d70e781bc9ff.sock
 # environment
 VSCODE_CWD = /home/kirill
 # default
@@ -35,7 +35,7 @@ QT_ACCESSIBILITY = 1
 # environment
 SNAP_INSTANCE_NAME = code
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/96/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -53,11 +53,11 @@ VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = /home/kirill/.config/Code/CachedData/da15b6fd3ef856477bf6f4fb29ba1b7af717770d
+VSCODE_CODE_CACHE_PATH = /home/kirill/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.F74GM1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.E4VKM1
 # default
 .LOADED := 
 # default
@@ -97,7 +97,7 @@ SNAP_REEXEC =
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 2513
+VSCODE_PID = 2608
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -107,7 +107,7 @@ BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # makefile (from 'Makefile', line 6)
 FLAGS = -g -c -Wall
 # environment
-SESSION_MANAGER = local/kirill-VirtualBox:@/tmp/.ICE-unix/1545,unix/kirill-VirtualBox:/tmp/.ICE-unix/1545
+SESSION_MANAGER = local/kirill-VirtualBox:@/tmp/.ICE-unix/1673,unix/kirill-VirtualBox:/tmp/.ICE-unix/1673
 # automatic
 *F = $(notdir $*)
 # environment
@@ -153,11 +153,11 @@ LANGUAGE = en_IL:en
 # environment
 SNAP_USER_COMMON = /home/kirill/snap/code/common
 # environment
-SNAP = /snap/code/96
+SNAP = /snap/code/97
 # environment
-INVOCATION_ID = 19d3697f8e14410d8ee01e8ca8410020
+INVOCATION_ID = bd53fbd5c3a6494f809002633fc039f8
 # environment
-SNAP_REVISION = 96
+SNAP_REVISION = 97
 # environment
 SNAP_REAL_HOME = /home/kirill
 # environment
@@ -203,21 +203,21 @@ MAKE_VERSION := 4.3
 # environment
 DISABLE_WAYLAND = 1
 # environment
-SNAP_DATA = /var/snap/code/96
+SNAP_DATA = /var/snap/code/97
 # environment
 SNAP_CONTEXT = VYapbnRLuMpWByPxPLxm_RIx4Dbgt1U1ctIMcCm7dY54cgKISHtT
 # environment
-MANAGERPID = 1407
+MANAGERPID = 1533
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2466
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2291
 # environment
-_ = /snap/code/96/usr/share/code/code
+_ = /snap/code/97/usr/share/code/code
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/kirill/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-JOURNAL_STREAM = 8:23803
+JOURNAL_STREAM = 8:23853
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -229,11 +229,11 @@ QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-f029b8f5-1.67.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-f029b8f5-1.67.2-main.sock
 # environment
 SNAP_NAME = code
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code/96/usr/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /snap/code/97/usr/share/glib-2.0/schemas
 # environment
 IM_CONFIG_PHASE = 1
 # default
@@ -241,7 +241,7 @@ IM_CONFIG_PHASE = 1
 # automatic
 <F = $(notdir $<)
 # environment
-SNAP_VERSION = da15b6fd
+SNAP_VERSION = c3511e6c
 # makefile (from 'Makefile', line 4)
 OUT = server
 # default
@@ -259,7 +259,7 @@ CC = g++
 # makefile (from 'Makefile', line 7)
 LFLAGS = -lpthread
 # environment
-SNAP_USER_DATA = /home/kirill/snap/code/96
+SNAP_USER_DATA = /home/kirill/snap/code/97
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
@@ -267,7 +267,7 @@ GDMSESSION = ubuntu
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=128/1024=12%, Rehash=0, Collisions=4/164=2%
+# Load=128/1024=12%, Rehash=0, Collisions=4/159=3%
 
 # Pattern-specific Variable Values
 
@@ -275,34 +275,36 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 2051, inode 131247): 16 files, no impossibilities.
+# . (device 2051, inode 131247): 15 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 15 files, no impossibilities in 1 directories.
 
+ 
 # Implicit Rules
 
 # No implicit rules.
 
 # Files
 
- 
 client: client.o
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-05-19 02:33:15.231724086
+#  File has been updated.
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 18):
 	$(CC) client.o -o client 
 
 client.o: client.c
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Last modified 2022-05-19 02:33:15.167724167
+#  File has been updated.
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 27):
 	$(CC) -c client.c
 
 server.o: server.c
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-18 23:10:15.471704791
+#  Last modified 2022-05-19 03:41:47.784864593
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 21):
@@ -325,7 +327,7 @@ clean:
 # Not a target:
 server.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-18 23:10:12.202193656
+#  Last modified 2022-05-19 03:41:45.032866198
 #  File has been updated.
 #  Successfully updated.
 
@@ -337,18 +339,16 @@ test.c:
 
 server: server.o stack.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-18 23:42:38.375031186
+#  Last modified 2022-05-19 03:41:48.108864404
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 15):
 	$(CC) -g $(OBJS) -o $(OUT) $(LFLAGS)
 
 # Not a target:
 stack.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-18 23:43:58.29317405
+#  Last modified 2022-05-19 03:37:38.833051811
 #  File has been updated.
 #  Successfully updated.
 
@@ -360,18 +360,17 @@ stack.c:
 
 # Not a target:
 client.c:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit rule search has been done.
+#  Last modified 2022-05-19 02:33:10.163730719
+#  File has been updated.
+#  Successfully updated.
 
 all: server client
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/5=0%
+#  Successfully updated.
 
 test: test.o stack.o
 #  Implicit rule search has not been done.
@@ -387,53 +386,28 @@ test.o: test.c
 #  recipe to execute (from 'Makefile', line 31):
 	$(CC) test.c -c
 
-# Not a target:
-.SUFFIXES:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
 stack.o: stack.c
 #  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
-#  Last modified 2022-05-18 23:42:38.291023932
+#  Last modified 2022-05-19 03:41:47.984864477
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := stack.o
-# automatic
-# * := 
-# automatic
-# < := stack.c
-# automatic
-# + := stack.c
-# automatic
-# % := 
-# automatic
-# ^ := stack.c
-# automatic
-# ? := stack.c
-# automatic
-# | := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/13=15%
+#  Successfully updated.
 #  recipe to execute (from 'Makefile', line 24):
 	$(CC) $(FLAGS) stack.c
 
 # files hash-table stats:
-# Load=16/1024=2%, Rehash=0, Collisions=1/45=2%
+# Load=16/1024=2%, Rehash=0, Collisions=1/44=2%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 191 B / avg = 7 B
-# current buf: size = 8162 B / used = 191 B / count = 24 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 23 / storage = 181 B / avg = 7 B
+# current buf: size = 8162 B / used = 181 B / count = 23 / avg = 7 B
 
-# strcache performance: lookups = 55 / hit rate = 56%
+# strcache performance: lookups = 53 / hit rate = 56%
 # hash-table stats:
-# Load=24/8192=0%, Rehash=0, Collisions=0/55=0%
-# Finished Make data base on Thu May 19 00:10:24 2022
+# Load=23/8192=0%, Rehash=0, Collisions=0/53=0%
+# Finished Make data base on Fri May 20 21:53:15 2022
 
  

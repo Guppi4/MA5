@@ -1,6 +1,7 @@
 {
     "makefile.extensionOutputFolder": "./.vscode",
     "files.associations": {
-        "mman.h": "c"
+        "mman.h": "c",
+        "stdio.h": "c"
     }
 }

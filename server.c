@@ -17,19 +17,26 @@
 #include <fcntl.h>
 
 #define PORT "3512" // the port users will be connecting to
-
+#define S 10124
 #define BACKLOG 10 // how many pending connections queue will hold
 #define MAXP 11
 char client_message[2000];
 char buffer[1024];
 int new_fd[MAXP];
-
+struct stack_tag
+{
+    char data[S];
+    int tos;
+};
 int sockfd;
- static struct StackNode *stack_s = NULL;
+stack st=NULL;
 void *socketThread(void *arg)
 {
-   // printf("ENTER AAAAAAAAA\n");
-  static struct StackNode *stack_s = NULL;
+ 
+    if (st== NULL)
+    {
+        perror("Not correct\n");
+    }
     /// printf("%s","hgjh");
     int newSocket = *((int *)arg);
    // free(arg);
@@ -51,7 +58,9 @@ void *socketThread(void *arg)
     }
     if (!strncmp(buff, "PUSH ", 4))
     {
+       // printf("ENTER bb\n");
         c = 2;
+   /// printf("the client %d has left the server ",c);
     }
     if (!strncmp(buff, "TOP ", 3))
     {
@@ -66,20 +75,21 @@ void *socketThread(void *arg)
     {
     case 1:
         char *s;
-        s = pop(&stack_s);
+        s = stack_pop(st);
          send(newSocket, s, strlen(s), 0);
        //printf("the client %d has left the server ",i);
         break;
 
     case 2:
+         /// printf("ENTER kk\n");
         strin=buff + 5;
-        push(&stack_s,strin);
+        stack_push(st,strin);
         //puts("client ");
         // printf("the client %d has left the server ",i);
          break;
     case 3:
         char *s1;
-        s1 = peek(&stack_s);
+        s1 = stack_top(st);
        // printf("%s",peek(&stack_s));
         send(newSocket, s1, strlen(s1), 0);
         //printf("the client %d has left the server ",i);
@@ -121,7 +131,8 @@ void *get_in_addr(struct sockaddr *sa)
 
 int main(void)
 {
-    static struct StackNode *stack_s = NULL;
+     st=(stack)mmap(NULL, sizeof(struct stack_tag), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0); 
+    st->tos=0;
     int  fd,*new_sock; // listen on sock_fd, new connection on new_fd
     struct addrinfo hints, *servinfo, *p;
     struct sockaddr_storage their_addr; // connector's address information
@@ -132,13 +143,13 @@ int main(void)
     int rv;
     pid_t childpid;
     struct flock lock;
-   
+    
     struct stat sb;
-   fd = open ("stack_file.exe", O_RDWR);
-        
+//    fd = open ("stack_file.exe", O_RDWR);
+     //stack_create(st);
     
    
-    stack_s = (struct StackNode*)mmap(NULL,  sizeof(stack_s)*100333, PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANONYMOUS, fd, 0);
+//     stack_s = (struct StackNode*)mmap(NULL,  sizeof(stack_s)*100333, PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANONYMOUS, fd, 0);
         
          
          
