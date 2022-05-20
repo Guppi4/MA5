@@ -69,9 +69,10 @@ element_type stack_top(stack s)
 
 element_type stack_pop(stack s)
 {
-    if (s->data == 0)
+    if (s->tos == 0)
     {
-        perror("Error! stack is empty\n");
+        //perror("Error! stack is empty\n");
+       return "Empty";
     }
     int i;
     for (i = (s->tos) - 2; s->data[i] != '\0'; i--)
@@ -100,9 +101,9 @@ void stack_push(stack s, element_type e)
     for (int i = 0; i < si; i++)
     {
         s->data[s->tos] = e[i];
-         printf("s->tos %d\n", s->tos);
+         //printf("s->tos %d\n", s->tos);
         // printf("tos  %d\n", s->tos);
-        printf("s->data[s->tos]=%c\n",  s->data[s->tos]);
+       // printf("s->data[s->tos]=%c\n",  s->data[s->tos]);
         s->tos++;
         // int p=s->tos;
         
@@ -111,7 +112,7 @@ void stack_push(stack s, element_type e)
     }
 
     s->data[s->tos++] = '\0';
-     printf("s->tos %d\n", s->tos);
+     //printf("s->tos %d\n", s->tos);
     printf("%s pushed to stack\n", s->data);
 }
 

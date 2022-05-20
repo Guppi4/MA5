@@ -11,7 +11,7 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <signal.h>
-#include <sys/mman.h> 
+#include <sys/mman.h>
 #include <pthread.h>
 #include "stack.h"
 #include <fcntl.h>
@@ -28,82 +28,101 @@ struct stack_tag
     char data[S];
     int tos;
 };
+struct flock flock;
 int sockfd;
-stack st=NULL;
+stack st = NULL;
+int fd;
+
+int tolock()
+{
+    fd = open("lock.txt", O_RDWR);
+    if (fd < 0)
+    {
+        perror("Error!");
+    }
+    memset(&flock, 0, sizeof(flock)); // size
+}
 void *socketThread(void *arg)
 {
- 
-    if (st== NULL)
+
+    if (st == NULL)
     {
         perror("Not correct\n");
     }
     /// printf("%s","hgjh");
     int newSocket = *((int *)arg);
-   // free(arg);
+    // free(arg);
     sleep(1);
-    char buff[1024],*strin;
+    char buff[1024], *strin;
 
     char *message;
     int nb;
-       while (1) {
-	   
-    nb= recv(newSocket, buff, 1024, 0);
-    
-    int c = 0;
-    buff[nb] = '\0';
-    // printf("server%sserver",buff);
-    if (!strncmp(buff, "POP", 3))
+    (flock).l_type = F_WRLCK; // lock
+    fcntl(fd, F_SETLKW, &flock);
+    //loking
+    (flock).l_type = F_UNLCK;
+    fcntl(fd, F_SETLKW, &flock);
+    while (1)
     {
-        c = 1;
-    }
-    if (!strncmp(buff, "PUSH ", 4))
-    {
-       // printf("ENTER bb\n");
-        c = 2;
-   /// printf("the client %d has left the server ",c);
-    }
-    if (!strncmp(buff, "TOP ", 3))
-    {
-        c = 3;
-    }
-    if (!strncmp(buff, "EXIT ", 4))
-    {
-        c = 4;
+
+        nb = recv(newSocket, buff, 1024, 0);
+
+        int c = 0;
+        buff[nb] = '\0';
+        // printf("server%sserver",buff);
+        if (!strncmp(buff, "POP", 3))
+        {
+            c = 1;
+        }
+        if (!strncmp(buff, "PUSH ", 4))
+        {
+            // printf("ENTER bb\n");
+            c = 2;
+            /// printf("the client %d has left the server ",c);
+        }
+        if (!strncmp(buff, "TOP ", 3))
+        {
+            c = 3;
+        }
+        if (!strncmp(buff, "EXIT ", 4))
+        {
+            c = 4;
+        }
+
+        switch (c)
+        {
+        case 1:
+            char *s;
+            s = stack_pop(st);
+            send(newSocket, s, strlen(s), 0);
+            // printf("the client %d has left the server ",i);
+            break;
+
+        case 2:
+            /// printf("ENTER kk\n");
+            strin = buff + 5;
+            stack_push(st, strin);
+            // puts("client ");
+            //  printf("the client %d has left the server ",i);
+            break;
+        case 3:
+            char *s1;
+            s1 = stack_top(st);
+            // printf("%s",peek(&stack_s));
+            send(newSocket, s1, strlen(s1), 0);
+            // printf("the client %d has left the server ",i);
+            break;
+
+        case 4:
+            // printf("the client %d has left the server ",i);
+            break;
+        default:
+            // printf("the client %d has left the server ",i);
+            break;
+        }
+        bzero(buffer, 1024);
     }
 
-    switch (c)
-    {
-    case 1:
-        char *s;
-        s = stack_pop(st);
-         send(newSocket, s, strlen(s), 0);
-       //printf("the client %d has left the server ",i);
-        break;
-
-    case 2:
-         /// printf("ENTER kk\n");
-        strin=buff + 5;
-        stack_push(st,strin);
-        //puts("client ");
-        // printf("the client %d has left the server ",i);
-         break;
-    case 3:
-        char *s1;
-        s1 = stack_top(st);
-       // printf("%s",peek(&stack_s));
-        send(newSocket, s1, strlen(s1), 0);
-        //printf("the client %d has left the server ",i);
-        break;
-
-    case 4:
-       //printf("the client %d has left the server ",i);
-        break;
-    default:
-       // printf("the client %d has left the server ",i);
-        break;
-    }
-      bzero(buffer, 1024);
-       }
     close(newSocket);
     // pthread_exit(NULL);
 }
@@ -131,9 +150,11 @@ void *get_in_addr(struct sockaddr *sa)
 
 int main(void)
 {
-     st=(stack)mmap(NULL, sizeof(struct stack_tag), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0); 
-    st->tos=0;
-    int  fd,*new_sock; // listen on sock_fd, new connection on new_fd
+    tolock();
+
+    st = (stack)mmap(NULL, sizeof(struct stack_tag), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    st->tos = 0;
+    int fd2, *new_sock; // listen on sock_fd, new connection on new_fd
     struct addrinfo hints, *servinfo, *p;
     struct sockaddr_storage their_addr; // connector's address information
     socklen_t sin_size;
@@ -142,25 +163,18 @@ int main(void)
     char s[INET6_ADDRSTRLEN];
     int rv;
     pid_t childpid;
-    struct flock lock;
-    
+
     struct stat sb;
-//    fd = open ("stack_file.exe", O_RDWR);
-     //stack_create(st);
-    
-   
-//     stack_s = (struct StackNode*)mmap(NULL,  sizeof(stack_s)*100333, PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANONYMOUS, fd, 0);
-        
-         
-         
-        
-   
-   
+    //    fd = open ("stack_file.exe", O_RDWR);
+    // stack_create(st);
+
+    //     stack_s = (struct StackNode*)mmap(NULL,  sizeof(stack_s)*100333, PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANONYMOUS, fd, 0);
+
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     hints.ai_flags = AI_PASSIVE; // use my IP
- 
+
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0)
     {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
@@ -217,9 +231,9 @@ int main(void)
         exit(1);
     }
     pthread_t tid[60];
-    
+
     printf("server: waiting for connections...\n");
-     int i = 0;
+    int i = 0;
     while (1)
     { // main accept() loop
         sin_size = sizeof their_addr;
@@ -234,22 +248,22 @@ int main(void)
                   get_in_addr((struct sockaddr *)&their_addr),
                   s, sizeof s);
         // printf("server: got connection from %s\n", s);
-         //pid_t pidid=
-        
-            // Creates a child process
-        if (fork() == 0) {
-             close(sockfd);
+        // pid_t pidid=
+
+        // Creates a child process
+        if (fork() == 0)
+        {
+            close(sockfd);
             // Closing the server socket id
-          printf("client  %d  in server  \n",i);
-             socketThread(&new_fd[i]);
-            
+            printf("client  %d  in server  \n", i);
+            socketThread(&new_fd[i]);
+
             return 1;
-             
         }
-      
-       i++;   ///close(*new_sock);
+
+        i++; /// close(*new_sock);
     }
     close(sockfd);
-    //free(i);
+    // free(i);
     return 0;
 }
